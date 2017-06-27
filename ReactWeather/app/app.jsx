@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 var Main = require('Main');
 var Weather = require('Weather');
@@ -10,11 +10,11 @@ var Examples = require('Examples');
 //load foundation
 require('style!css!foundation-sites/dist/foundation.min.css')
 //app css
-require('style!css!applicationStyles')
+require('style!css!sass!applicationStyles')
 $(document).foundation();
 
 ReactDOM.render(
-  <BrowserRouter>
+  <Router history={history}>
     <Main>
       <Switch>
         <Route exact path="/" component={Weather}/>
@@ -22,6 +22,6 @@ ReactDOM.render(
         <Route path="/examples" component={Examples}/>
       </Switch>
     </Main>
-  </BrowserRouter>,
+  </Router>,
   document.getElementById('app')
 );

@@ -1,23 +1,17 @@
 var React = require('react');
-var {IndexLink, Link, NavLink} = require('react-router-dom');
-
-// var Nav = React.createClass({
-//   render: function (){
-//     return(
-//       <div>
-//         <h2>NavBar Component</h2>
-//         <NavLink activeClassName="active" activeStyle={{fontWeight: 'bold'}} exact to="/">Get Weather</NavLink>
-//         <NavLink activeClassName="active" activeStyle={{fontWeight: 'bold'}} to="/about">About</NavLink>
-//         <NavLink activeClassName="active" activeStyle={{fontWeight: 'bold'}} to="/examples">Examples</NavLink>
-//       </div>
-//     );
-//   }
-// });
+var {IndexLink, Link, NavLink, browserHistory, withRouter} = require('react-router-dom');
 
 var Nav = React.createClass({
   onSearch: function(e){
     e.preventDefault();
-    alert('Não ta pronto ainda');
+
+    let location = this.refs.search.value;
+    let encodedLocation = encodeURIComponent(location);
+
+    if (location.length > 0){
+      this.refs.search.value = '';
+      this.props.history.push(`/?location=${encodedLocation}`);
+    }
   },
   render: function(){
     return(
@@ -40,7 +34,7 @@ var Nav = React.createClass({
           <form onSubmit={this.onSearch}>
             <ul className="menu">
               <li>
-                <input type="search" placeholder="Enter city name"/>
+                <input ref="search" type="search" placeholder="Enter city name"/>
               </li>
               <li>
                 <input type="submit" className="button" value="Get weather"/>
@@ -53,4 +47,4 @@ var Nav = React.createClass({
   }
 });
 
-module.exports = Nav;
+module.exports = withRouter(Nav);
